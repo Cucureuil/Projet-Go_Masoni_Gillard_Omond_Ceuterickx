@@ -2,9 +2,9 @@
 package main
 
 import (
-	"fmt"
+	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/sensors"
 )
 
 func main() {
-	fmt.Println("Hello World!")
+	sensors.HelloWorld()
 }
