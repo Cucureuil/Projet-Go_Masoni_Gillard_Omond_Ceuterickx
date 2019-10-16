@@ -10,24 +10,27 @@ import (
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/sensors"
 )
 
-
 func main() {
-	s1 := sensors.NewSensorWind(1,"ID","Wind", 1.0,"2019")
-
-	//msg := "HELLO SUB"
-	msg, err := json.Marshal(s1)
-    if err != nil {
-        fmt.Println(err)
-        return
-	}
-	fmt.Println(msg)
 	topic := "test"
-
 	client_pub := connect("tcp://localhost:1883", "clientPub")
-	client_pub.Publish(topic, 0, false, msg).Wait()
+	for {
+		// Wind , Temperature or Pressure
+		s:= sensors.RandSensor()
+		
+		// Write sensor in JSON
+		msg, err := json.Marshal(s)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
-	time.Sleep(100 * time.Second)
-	client_pub.Disconnect(10000)
+		fmt.Println(msg)
+		
+		client_pub.Publish(topic, 0, false, msg).Wait()
+
+		time.Sleep(10 * time.Second)
+	}
+	client_pub.Disconnect(10)
 }
 
 func createClientOptions(brokerURI string, clientID string) *mqtt.ClientOptions {
