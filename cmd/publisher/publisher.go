@@ -1,5 +1,5 @@
 // publisher
-package main
+package publisher
 
 import (
 	"fmt"
@@ -10,10 +10,6 @@ import (
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
-
-func main() {
-	Publish(config.GetPress(), "test", "Pressure = 111")
-}
 
 func createClientOptions(brokerURI string, clientId string) *mqtt.ClientOptions {
 	opts := mqtt.NewClientOptions()
@@ -28,7 +24,10 @@ func createClientOptions(brokerURI string, clientId string) *mqtt.ClientOptions 
 	return opts
 }
 
-func connect(brokerURI string, clientId string) mqtt.Client {
+func Connect(conf *config.Config) mqtt.Client {
+	brokerURI := conf.BrokerAddress + ":" + conf.BrokerPort
+	clientId := conf.ClientID
+
 	fmt.Println("Trying to connect (" + brokerURI + ", " + clientId + ") ...")
 	opts := createClientOptions(brokerURI, clientId)
 	client := mqtt.NewClient(opts)
@@ -41,9 +40,6 @@ func connect(brokerURI string, clientId string) mqtt.Client {
 	return client
 }
 
-func Publish(conf *config.Config, topic string, msg string) {
-	client2 := connect(conf.BrokerAddress+":"+conf.BrokerPort, conf.ClientID)
-	client2.Publish(topic, 0, false, msg)
-	time.Sleep(5 * time.Second)
-	fmt.Println("Message sended by " + conf.ClientID)
+func Publish(client mqtt.Client, topic string, msg interface{}) {
+	client.Publish(topic, 0, false, msg)
 }
