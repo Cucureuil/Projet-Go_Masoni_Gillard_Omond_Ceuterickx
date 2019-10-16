@@ -12,10 +12,10 @@ import (
 
 func main() {
 	topic := "test"
-	client_pub := connect("tcp://localhost:1883", "clientPub")
+	client_pub := connect("tcp://localhost:1883", "clientPubWind")
 	for {
-		// Wind , Temperature or Pressure
-		s:= sensors.RandSensor()
+
+		s:= sensors.RandSensorWind()
 		
 		// Write sensor in JSON
 		msg, err := json.Marshal(s)
