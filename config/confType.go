@@ -2,8 +2,8 @@
 package config
 
 type Config struct {
-	brokerPort    int
-	brokerAddress string
+	BrokerPort    string
+	BrokerAddress string
 	QoSLevel      int
-	clientID      string
+	ClientID      string
 }
