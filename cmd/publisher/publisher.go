@@ -5,10 +5,8 @@ import (
 	"fmt"
 	"log"
 	"time"
-
-	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/config"
-
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/config"
 )
 
 func createClientOptions(brokerURI string, clientId string) *mqtt.ClientOptions {
@@ -42,4 +40,16 @@ func Connect(conf *config.Config) mqtt.Client {
 
 func Publish(client mqtt.Client, topic string, msg interface{}) {
 	client.Publish(topic, 0, false, msg)
+}
+
+func GetWindClient() mqtt.Client {
+	return Connect(config.GetWind())
+}
+
+func GetPressureClient() mqtt.Client {
+	return Connect(config.GetPress())
+}
+
+func GetTemperatureClient() mqtt.Client {
+	return Connect(config.GetTemp())
 }
