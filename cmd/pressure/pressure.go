@@ -9,12 +9,13 @@ import (
 )
 
 func main() {
-	topic := "test"
+	
 	pressClient := publisher.GetPressureClient()
 
 	for {
 		s := sensors.RandSensorPressure()
 
+		topic := s.IdAirport + "-PRESSURE"
 		// Write sensor in JSON
 		msg, err := json.Marshal(s)
 		if err != nil {

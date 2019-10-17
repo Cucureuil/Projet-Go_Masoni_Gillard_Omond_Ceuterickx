@@ -10,12 +10,11 @@ import (
 )
 
 func main() {
-	topic := "test"
 	windClient := publisher.GetWindClient()
 
 	for {
 		s := sensors.RandSensorWind()
-
+		topic := s.IdAirport + "-WIND"
 		// Write sensor in JSON
 		msg, err := json.Marshal(s)
 		if err != nil {

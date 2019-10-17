@@ -63,12 +63,10 @@ func RandSensorPressure() *sensor {
 func RandIdAirport() string {
 	i := rand.Intn(30)
 	switch {
-	case i <= 10:
+	case i <= 15:
 		return "AAA1"
-	case i <= 20 && i > 10:
+	case i <= 30 && i > 15:
 		return "BBB1"
-	case i <= 30 && i > 20:
-		return "CCC1"
 	}
 	return ""
 }

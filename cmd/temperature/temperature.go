@@ -10,12 +10,11 @@ import (
 )
 
 func main() {
-	topic := "test"
 	tempClient := publisher.GetTemperatureClient()
 
 	for {
 		s := sensors.RandSensorTemperature()
-
+		topic := s.IdAirport + "-TEMP"
 		// Write sensor in JSON
 		msg, err := json.Marshal(s)
 		if err != nil {
