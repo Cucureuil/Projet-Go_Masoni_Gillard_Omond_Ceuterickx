@@ -1,8 +1,8 @@
 // tempConf
 package config
 
-func GetTemp() *Config {
-	return &Config{
+func GetTemp() *ConfigConnection {
+	return &ConfigConnection{
 		BrokerPort:    "1883",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
@@ -10,8 +10,8 @@ func GetTemp() *Config {
 	}
 }
 
-func GetWind() *Config {
-	return &Config{
+func GetWind() *ConfigConnection {
+	return &ConfigConnection{
 		BrokerPort:    "1883",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
@@ -19,11 +19,29 @@ func GetWind() *Config {
 	}
 }
 
-func GetPress() *Config {
-	return &Config{
+func GetPress() *ConfigConnection {
+	return &ConfigConnection{
 		BrokerPort:    "1883",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
 		ClientID:      "SP01",
+	}
+}
+
+func GetAirportA() *ConfigConnection {
+	return &ConfigConnection{
+		BrokerPort:    "1883",
+		BrokerAddress: "tcp://localhost",
+		QoSLevel:      0,
+		ClientID:      "AAA1",
+	}
+}
+
+func GetAirportB() *ConfigConnection {
+	return &ConfigConnection{
+		BrokerPort:    "1883",
+		BrokerAddress: "tcp://localhost",
+		QoSLevel:      0,
+		ClientID:      "BBB1",
 	}
 }

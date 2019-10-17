@@ -1,5 +1,5 @@
-// publisher
-package publisher
+
+package client
 
 import (
 	"fmt"
@@ -22,7 +22,7 @@ func createClientOptions(brokerURI string, clientId string) *mqtt.ClientOptions 
 	return opts
 }
 
-func Connect(conf *config.Config) mqtt.Client {
+func Connect(conf *config.ConfigConnection) mqtt.Client {
 	brokerURI := conf.BrokerAddress + ":" + conf.BrokerPort
 	clientId := conf.ClientID
 
@@ -38,18 +38,3 @@ func Connect(conf *config.Config) mqtt.Client {
 	return client
 }
 
-func Publish(client mqtt.Client, topic string, msg interface{}) {
-	client.Publish(topic, 0, false, msg)
-}
-
-func GetWindClient() mqtt.Client {
-	return Connect(config.GetWind())
-}
-
-func GetPressureClient() mqtt.Client {
-	return Connect(config.GetPress())
-}
-
-func GetTemperatureClient() mqtt.Client {
-	return Connect(config.GetTemp())
-}

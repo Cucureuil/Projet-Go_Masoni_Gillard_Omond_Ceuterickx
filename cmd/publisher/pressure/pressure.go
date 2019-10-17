@@ -1,20 +1,24 @@
-// publisher
 package main
 
 import (
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/sensors"
-	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/publisher"
+	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/publisher/generic"
 	"encoding/json"
 	"fmt"
 	"time"
 )
 
 func main() {
-	tempClient := publisher.GetTemperatureClient()
+	
+	pressClient := publisher.GetPressureClient()
 
 	for {
-		s := sensors.RandSensorTemperature()
-		topic := s.IdAirport + "-TEMP"
+		s := sensors.RandSensorPressure()
+
+		//topic := s.IdAirport + "-PRESSURE"
+
+		topic := s.IdAirport
+		
 		// Write sensor in JSON
 		msg, err := json.Marshal(s)
 		if err != nil {
@@ -22,7 +26,7 @@ func main() {
 			return
 		}
 
-		publisher.Publish(tempClient, topic, msg)
+		publisher.Publish(pressClient, topic, msg)
 
 		time.Sleep(10 * time.Second)
 	}

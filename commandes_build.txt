@@ -1,0 +1,5 @@
+go build C:/Go/gopath/src/Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/publisher/pressure
+go build C:/Go/gopath/src/Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/publisher/temperature
+go build C:/Go/gopath/src/Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/publisher/wind
+go build C:/Go/gopath/src/Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/subscriber/BY_AIRPORT/AirportA
+go build C:/Go/gopath/src/Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/subscriber/BY_AIRPORT/AirportB

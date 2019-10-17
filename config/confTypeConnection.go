@@ -1,7 +1,7 @@
 // confType
 package config
 
-type Config struct {
+type ConfigConnection struct {
 	BrokerPort    string
 	BrokerAddress string
 	QoSLevel      int
