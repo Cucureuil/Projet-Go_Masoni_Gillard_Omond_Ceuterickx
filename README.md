@@ -1,7 +1,5 @@
 # Projet-Go_Masoni_Gillard_Omond_Ceuterickx
 
-# Projet-Go_Masoni_Gillard_Omond_Ceuterickx
-
 <h1>INSTALL</h1>
 <p>
   OPEN CMD OR BASH : <br/>
