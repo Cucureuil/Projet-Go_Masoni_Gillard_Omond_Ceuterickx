@@ -26,6 +26,11 @@ export class ApiService {
     public static API_GET_SENSOR = 'sensor/';
 
     /**
+     * Average
+     */
+    public static API_AVERAGE = 'average/';
+
+    /**
      *
      * End: Url API Zone
      *
