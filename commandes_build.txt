@@ -3,3 +3,11 @@ go build C:/Go/gopath/src/Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/publishe
 go build C:/Go/gopath/src/Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/publisher/wind
 go build C:/Go/gopath/src/Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/subscriber/BY_AIRPORT/AirportA
 go build C:/Go/gopath/src/Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/subscriber/BY_AIRPORT/AirportB
+
+
+Pour exec :
+
+Lancer d'abord un cmd avec mosquitto -v qui tourne
+
+Ensuite lancer un des exe d'un aeroport (subscriber)
+Ensuite lancer un des exe d'un capteur (publisher)
