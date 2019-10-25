@@ -38,9 +38,18 @@ mosquitto -v <br/>
 <p>
 /airports -- list of all airport<br/>
 /airport/{id} -- data for one airport<br/>
+/airport/{id}/{sensorType} -- data for one airport by sensorType<br/>
+/airport/{id}/{startDate}/{endDate} -- data for one airport between two dates<br/>
+/airport/{id}/{sensorType}/{startDate}/{endDate} -- data for one airport by sensorType and between two dates<br/>  
+<br/>  
 /sensor/{id} -- data for one sensor<br/>
-/date/{date} -- data for one date (YYYY-MM-DD-hh-mm-ss)<br/>
-/date/{startDate}/{endDate} -- data between two dates (YYYY-MM-DD-hh-mm-ss)<br/>
-/average -- averages for each types of sensor<br/>
+/sensor/{startDate}/{endDate} -- data for one sensor between two dates<br/>
+<br/>
+/average/airport/{id}/{sensorType} -- averages by sensor type and airport<br/>
+/average/airport/{id}/{sensorType}/{startDate}/{endDate} -- averages by sensor type and airport and between two dates<br/>
+/average/sensor/{id} -- average of a sensor<br/>
+/average/sensor/{id}/{startDate}/{endDate} -- average of a sensor between two dates<br/>
+/average/type/{sensorType} -- average by sensor type<br/>
+/average/type/{sensorType}/{startDate}/{endDate} -- average by sensor type between two dates<br/>  
 </p>
 
