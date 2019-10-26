@@ -18,6 +18,8 @@ func InsertNewEntry(data sensors.Sensor) {
 	}
 	defer conn.Close()
 
+	conn.Do("SADD", "idAirports", data.IdAirport)
+
 	key := data.IdAirport + ":" + data.TypeMeasure
 	timestamp := data.DateMeasure
 	idDonnee, _ := conn.Do("INCR", "idDonnee")

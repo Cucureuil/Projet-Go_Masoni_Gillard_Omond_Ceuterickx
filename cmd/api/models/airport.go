@@ -1,32 +1,82 @@
 package models
 
-import ( 
+import (
+	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/redisConnection"
 	"strconv"
+	"strings"
+
+	"github.com/gomodule/redigo/redis"
 )
 
-// A COMPLETER QUAND REDIS OK
-type Airport struct {
-	Id string
+type AverageByAirport struct {
+	IdAirport string
+	Averages  []AverageByType
 }
 
-type Airports []Airport
-
-// -----
-// /!\ EDITER LE CODE - CODE DE TEST
-func NewAirport(i int) Airport{
-	index := "ZZZ"+strconv.Itoa(i)
-	return Airport{Id:index}
+type AverageByType struct {
+	Type    string
+	Average float64
 }
 
-// /!\ EDITER LE CODE - CODE DE TEST
-func ListAllAirport() *Airports {
-	var airports Airports
+func GetAverageAirports() []AverageByAirport {
+	conn := redisConnection.Get()
+	idAirports, _ := redis.Strings(conn.Do("SMEMBERS", "idAirports"))
+	conn.Close()
 
-	for i := 0; i < 10; i++ {
-		var a Airport
-		a = NewAirport(i)
-
-		airports = append(airports, a)
+	var averagesAirports []AverageByAirport
+	for _, id := range idAirports {
+		avA := GetAverageAirport(id)
+		averagesAirports = append(averagesAirports, avA)
 	}
-	return &airports
+
+	return averagesAirports
+}
+
+func GetAverageAirport(idAirport string) AverageByAirport {
+	conn := redisConnection.Get()
+	defer conn.Close()
+
+	var avAirport AverageByAirport
+	var avTypes []AverageByType
+
+	a := GetAverageByType(conn, idAirport, "Wind speed")
+	avTypes = append(avTypes, a)
+
+	a = GetAverageByType(conn, idAirport, "Temperature")
+	avTypes = append(avTypes, a)
+
+	a = GetAverageByType(conn, idAirport, "Atmospheric pressure")
+	avTypes = append(avTypes, a)
+
+	avAirport.IdAirport = idAirport
+	avAirport.Averages = avTypes
+
+	return avAirport
+}
+
+func GetAverageByType(conn redis.Conn, idAirport string, dataType string) AverageByType {
+	var a AverageByType
+	key := idAirport + ":" + dataType
+	r, _ := redis.Strings(conn.Do("ZRANGE", key, 0, -1))
+	av := Average(r)
+	a.Average = av
+	a.Type = dataType
+
+	return a
+}
+
+func Average(data []string) float64 {
+	var av float64
+	av = 0
+	if len(data) == 0 {
+		return av
+	} else {
+		for _, d := range data {
+			r := strings.Split(d, ":")
+			val, _ := strconv.ParseFloat(r[len(r)-1], 64)
+			av = av + val
+		}
+
+		return av / float64(len(data))
+	}
 }
