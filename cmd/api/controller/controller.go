@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -121,9 +120,9 @@ func GetSensorData(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 
 	// fakes data
-	airports := models.GetSensorData(Parameters{IdSensor: id})
+	airports := models.GetSensorData(models.Parameters{IdSensor: id})
 	fmt.Println("SENSOR BY ID")
-	fmt.Println(id, err)
+	fmt.Println(id)
 	json.NewEncoder(w).Encode(airports)
 }
 
@@ -143,9 +142,9 @@ func GetSensorDataBetweenTwoDates(w http.ResponseWriter, r *http.Request) {
 	endDate := vars["endDate"]
 
 	// fakes data
-	airports := models.GetSensorData(Parameters{IdSensor: id, DateStart: startDate, DateEnd: endDate})
+	airports := models.GetSensorData(models.Parameters{IdSensor: id, DateStart: startDate, DateEnd: endDate})
 	fmt.Println("SENSOR BY ID & TWO DATES")
-	fmt.Println(id, err, startDate, endDate)
+	fmt.Println(id, startDate, endDate)
 	json.NewEncoder(w).Encode(airports)
 }
 
@@ -173,21 +172,21 @@ func GetSensorsAverageBySensorTypeAndAirport(w http.ResponseWriter, r *http.Requ
 * Call in router:/average/sensor/{id}
 * Get average sensor
  */
-func GetSensorsAverageBySensor(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-type", "application/json;charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
+// func GetSensorsAverageBySensor(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
 
-	// get params like : www.../airport/id
-	vars := mux.Vars(r)
+// 	// get params like : www.../airport/id
+// 	vars := mux.Vars(r)
 
-	id := vars["id"]
+// 	id := vars["id"]
 
-	// fakes data
-	airports := models.ListAllAirport()
-	fmt.Println("AVERAGE TO SENSOR")
-	fmt.Println(id, err)
-	json.NewEncoder(w).Encode(airports)
-}
+// 	// fakes data
+// 	airports := models.ListAllAirport()
+// 	fmt.Println("AVERAGE TO SENSOR")
+// 	fmt.Println(id, err)
+// 	json.NewEncoder(w).Encode(airports)
+// }
 
 /*
 * Call in router:/average/type/{sensorType}
@@ -213,23 +212,23 @@ func GetSensorsAverageBySensor(w http.ResponseWriter, r *http.Request) {
 * Call in router:/average/type/{sensorType}/{startDate}/{endDate}
 * Get averages for each types of sensor between two dates
  */
-func GetSensorsAverageBySensorTypeBetweenTwoDates(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-type", "application/json;charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
+// func GetSensorsAverageBySensorTypeBetweenTwoDates(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
 
-	// get params like : www.../airport/id
-	vars := mux.Vars(r)
+// 	// get params like : www.../airport/id
+// 	vars := mux.Vars(r)
 
-	sensorType := vars["sensorType"]
-	startDate := vars["startDate"]
-	endDate := vars["endDate"]
+// 	sensorType := vars["sensorType"]
+// 	startDate := vars["startDate"]
+// 	endDate := vars["endDate"]
 
-	// fakes data
-	airports := models.Get
-	fmt.Println("AVERAGE TO SENSOR TYPE && TWO DATES")
-	fmt.Println(sensorType, startDate, endDate)
-	json.NewEncoder(w).Encode(airports)
-}
+// 	// fakes data
+// 	airports := models.Get
+// 	fmt.Println("AVERAGE TO SENSOR TYPE && TWO DATES")
+// 	fmt.Println(sensorType, startDate, endDate)
+// 	json.NewEncoder(w).Encode(airports)
+// }
 
 /*
 * Call in router:/average/airport/{id}/{sensorType}/{startDate}/{endDate}
@@ -258,21 +257,21 @@ func GetSensorsAverageBySensorAndAirportAndTypeBetweenTwoDates(w http.ResponseWr
 * Call in router:/average/sensor/{id}/{startDate}/{endDate}
 * Get averages for each types of sensor by Sensor Type, airport Id and between two dates
  */
-func GetSensorsAverageBetweenTwoDates(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-type", "application/json;charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
+// func GetSensorsAverageBetweenTwoDates(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
 
-	// get params like : www.../airport/id
-	vars := mux.Vars(r)
+// 	// get params like : www.../airport/id
+// 	vars := mux.Vars(r)
 
-	id, err := strconv.Atoi(vars["id"])
-	sensorType := vars["sensorType"]
-	startDate := vars["startDate"]
-	endDate := vars["endDate"]
+// 	id, err := strconv.Atoi(vars["id"])
+// 	sensorType := vars["sensorType"]
+// 	startDate := vars["startDate"]
+// 	endDate := vars["endDate"]
 
-	// fakes data
-	airports := models.ListAllAirport()
-	fmt.Println("AVERAGE TO SENSOR BY ID && TWO DATES")
-	fmt.Println(id, err, startDate, endDate, sensorType)
-	json.NewEncoder(w).Encode(airports)
-}
+// 	// fakes data
+// 	airports := models.ListAllAirport()
+// 	fmt.Println("AVERAGE TO SENSOR BY ID && TWO DATES")
+// 	fmt.Println(id, err, startDate, endDate, sensorType)
+// 	json.NewEncoder(w).Encode(airports)
+// }

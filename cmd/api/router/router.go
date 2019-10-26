@@ -1,15 +1,16 @@
 package router
 
 import (
-	"github.com/gorilla/mux"
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/api/controller"
-  )
-  
-  func InitializeRouter() *mux.Router {
+
+	"github.com/gorilla/mux"
+)
+
+func InitializeRouter() *mux.Router {
 	// StrictSlash is true => redirect /cars/ to /cars
 	router := mux.NewRouter().StrictSlash(true)
-  
-	// R1: list of all airport + averages for each types of sensor 
+
+	// R1: list of all airport + averages for each types of sensor
 	router.Methods("GET").Path("/airports").Name("Airports").HandlerFunc(controller.ListAirports)
 
 	// R2: data for one airport
@@ -30,16 +31,16 @@ import (
 	router.Methods("GET").Path("/average/airport/{id}/{sensorType}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensorTypeAndAirport)
 	// R4: averages for each types of sensor by Sensor Type, airport Id and between two dates
 	router.Methods("GET").Path("/average/airport/{id}/{sensorType}/{startDate}/{endDate}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensorAndAirportAndTypeBetweenTwoDates)
-	
-	// R4: average for sensor 
-	router.Methods("GET").Path("/average/sensor/{id}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensor)
-	// R4: average for sensor between two dates
-	router.Methods("GET").Path("/average/sensor/{id}/{startDate}/{endDate}").Name("average").HandlerFunc(controller.GetSensorsAverageBetweenTwoDates)
 
-	// R4: averages for each types of sensor by Sensor Type
-	router.Methods("GET").Path("/average/type/{sensorType}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensorType)
-	// R4: averages for each types of sensor between two dates
-	router.Methods("GET").Path("/average/type/{sensorType}/{startDate}/{endDate}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensorTypeBetweenTwoDates)	
-	
+	// // R4: average for sensor
+	// router.Methods("GET").Path("/average/sensor/{id}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensor)
+	// // R4: average for sensor between two dates
+	// router.Methods("GET").Path("/average/sensor/{id}/{startDate}/{endDate}").Name("average").HandlerFunc(controller.GetSensorsAverageBetweenTwoDates)
+
+	// // R4: averages for each types of sensor by Sensor Type
+	// router.Methods("GET").Path("/average/type/{sensorType}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensorType)
+	// // R4: averages for each types of sensor between two dates
+	// router.Methods("GET").Path("/average/type/{sensorType}/{startDate}/{endDate}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensorTypeBetweenTwoDates)
+
 	return router
-  }
+}
