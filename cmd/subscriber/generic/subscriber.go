@@ -1,12 +1,14 @@
 package subscriber
 
-import(
-	mqtt "github.com/eclipse/paho.mqtt.golang"
-	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/config"
+import (
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/client"
-	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/DataStructSub"
-	"fmt"
+	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/cmd/subscriber/redis"
+	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/config"
+	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/sensors"
 	"encoding/json"
+	"fmt"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
 func GetAirportAClient() mqtt.Client {
@@ -18,10 +20,7 @@ func GetAirportBClient() mqtt.Client {
 }
 
 func Receive(c mqtt.Client, m mqtt.Message) {
-	ascii := string(m.Payload())
-	fmt.Println(ascii)
-
-	var data DataStructSub.Data
+	var data sensors.Sensor
 	json.Unmarshal(m.Payload(), &data)
-	fmt.Println(data)
+	redis.InsertNewEntry(data)
 }

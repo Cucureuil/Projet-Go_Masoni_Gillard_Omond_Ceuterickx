@@ -7,52 +7,52 @@ import (
 )
 
 // attributs with UpperCase because of json
-type sensor struct {
+type Sensor struct {
 	IdSensor    int
 	IdAirport   string // only 3 char
 	TypeMeasure string // Temperature, Atmospheric pressure, Wind speed
 	Value       float64
-	DateMeasure string // (timestamp : YYYY-MM-DD-hh-mm-ss)
+	DateMeasure int64 // (timestamp)
 }
 
 /**
 * Constructors
  */
-func NewSensorWind(idSensor int, idAirport string, value float64, dateMeasure string) *sensor {
-	sensor := sensor{IdSensor: idSensor, IdAirport: idAirport, TypeMeasure: "Wind speed", Value: value, DateMeasure: dateMeasure}
+func NewSensorWind(idSensor int, idAirport string, value float64, dateMeasure int64) *Sensor {
+	sensor := Sensor{IdSensor: idSensor, IdAirport: idAirport, TypeMeasure: "Wind speed", Value: value, DateMeasure: dateMeasure}
 	return &sensor
 }
 
-func NewSensorTemperature(idSensor int, idAirport string, value float64, dateMeasure string) *sensor {
-	sensor := sensor{IdSensor: idSensor, IdAirport: idAirport, TypeMeasure: "Temperature", Value: value, DateMeasure: dateMeasure}
+func NewSensorTemperature(idSensor int, idAirport string, value float64, dateMeasure int64) *Sensor {
+	sensor := Sensor{IdSensor: idSensor, IdAirport: idAirport, TypeMeasure: "Temperature", Value: value, DateMeasure: dateMeasure}
 	return &sensor
 }
 
-func NewSensorPressure(idSensor int, idAirport string, value float64, dateMeasure string) *sensor {
-	sensor := sensor{IdSensor: idSensor, IdAirport: idAirport, TypeMeasure: "Atmospheric pressure", Value: value, DateMeasure: dateMeasure}
+func NewSensorPressure(idSensor int, idAirport string, value float64, dateMeasure int64) *Sensor {
+	sensor := Sensor{IdSensor: idSensor, IdAirport: idAirport, TypeMeasure: "Atmospheric pressure", Value: value, DateMeasure: dateMeasure}
 	return &sensor
 }
 
 /**
 * Create sensor with random values
  */
-func RandSensorWind() *sensor {
+func RandSensorWind() *Sensor {
 	date := getDate()
 	airport := RandIdAirport()
 	wind := roundMeasureValue(randWindSpeed())
 	return NewSensorWind(1, airport, wind, date)
 }
 
-func RandSensorTemperature() *sensor {
+func RandSensorTemperature() *Sensor {
 	date := getDate()
 	airport := RandIdAirport()
 	temp := roundMeasureValue(randTemperature())
 	return NewSensorTemperature(2, airport, temp, date)
 }
 
-func RandSensorPressure() *sensor {
+func RandSensorPressure() *Sensor {
 	date := getDate()
-	airport := RandIdAirport()
+	airport := "BBB1"
 	pres := roundMeasureValue(randPressure())
 	return NewSensorPressure(3, airport, pres, date)
 }
@@ -102,6 +102,6 @@ func randPressure() float64 {
 /**
 * get current date in format : YYYY-MM-DD-hh-mm-ss
  */
-func getDate() string {
-	return time.Now().Format("2006-01-02-15-04-05")
+func getDate() int64 {
+	return time.Now().Unix()
 }
