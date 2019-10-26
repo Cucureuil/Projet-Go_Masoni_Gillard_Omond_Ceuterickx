@@ -18,7 +18,6 @@ func ListAirports(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	// fakes data
 	airports := models.GetAverageAirports()
 	fmt.Println("AIRPORTS")
 
@@ -38,8 +37,7 @@ func GetAirportData(w http.ResponseWriter, r *http.Request) {
 
 	id := vars["id"]
 
-	// fakes data
-	airports := models.ListAllAirport()
+	airports := models.GetAverageAirport(id)
 	fmt.Println("AIRPORT BY ID")
 	fmt.Println(id)
 	json.NewEncoder(w).Encode(airports)
@@ -60,7 +58,7 @@ func GetAirportDataBySensorType(w http.ResponseWriter, r *http.Request) {
 	sensorType := vars["sensorType"]
 
 	// fakes data
-	airports := models.ListAllAirport()
+	airports := models.GetAverageByType(id, sensorType)
 	fmt.Println("AIRPORT BY ID & SENSOR TYPE")
 	fmt.Println(id, sensorType)
 	json.NewEncoder(w).Encode(airports)
