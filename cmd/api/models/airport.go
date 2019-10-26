@@ -3,8 +3,10 @@ package models
 import (
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/redisConnection"
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/sensors"
+
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gomodule/redigo/redis"
 )
@@ -29,6 +31,12 @@ type DataByType struct {
 	Data []sensors.Sensor
 }
 
+type Parameters struct {
+	IdSensor  string
+	DateStart string
+	DateEnd   string
+}
+
 func GetAverageAirports() []AverageByAirport {
 	conn := redisConnection.Get()
 	idAirports, _ := redis.Strings(conn.Do("SMEMBERS", "idAirports"))
@@ -36,27 +44,24 @@ func GetAverageAirports() []AverageByAirport {
 
 	var averagesAirports []AverageByAirport
 	for _, id := range idAirports {
-		avA := GetAverageAirport(id)
+		avA := GetAverageAirport(id, Parameters{})
 		averagesAirports = append(averagesAirports, avA)
 	}
 
 	return averagesAirports
 }
 
-func GetAverageAirport(idAirport string) AverageByAirport {
-	conn := redisConnection.Get()
-	defer conn.Close()
-
+func GetAverageAirport(idAirport string, params Parameters) AverageByAirport {
 	var avAirport AverageByAirport
 	var avTypes []AverageByType
 
-	a := GetAverageByType(conn, idAirport, "Wind speed")
+	a := GetAverageByType(idAirport, "Wind speed", params)
 	avTypes = append(avTypes, a)
 
-	a = GetAverageByType(conn, idAirport, "Temperature")
+	a = GetAverageByType(idAirport, "Temperature", params)
 	avTypes = append(avTypes, a)
 
-	a = GetAverageByType(conn, idAirport, "Atmospheric pressure")
+	a = GetAverageByType(idAirport, "Atmospheric pressure", params)
 	avTypes = append(avTypes, a)
 
 	avAirport.IdAirport = idAirport
@@ -65,10 +70,27 @@ func GetAverageAirport(idAirport string) AverageByAirport {
 	return avAirport
 }
 
-func GetAverageByType(conn redis.Conn, idAirport string, dataType string) AverageByType {
+func GetAverageByType(idAirport string, dataType string, params Parameters) AverageByType {
+	conn := redisConnection.Get()
+	defer conn.Close()
+
 	var a AverageByType
 	key := idAirport + ":" + dataType
-	r, _ := redis.Strings(conn.Do("ZRANGE", key, 0, -1))
+	var r []string
+	if params.DateStart != "" {
+		layout := "2006-01-02-15-04-05"
+		startTime, _ := time.Parse(layout, params.DateStart)
+		start := startTime.Unix()
+		var end string
+		end = "+inf"
+		if params.DateEnd != "" {
+			endTime, _ := time.Parse(layout, params.DateEnd)
+			end = strconv.FormatInt(endTime.Unix(), 10)
+		}
+		r, _ = redis.Strings(conn.Do("ZRANGEBYSCORE", key, start, end))
+	} else {
+		r, _ = redis.Strings(conn.Do("ZRANGE", key, 0, -1))
+	}
 	av := Average(r)
 	a.Average = av
 	a.Type = dataType
@@ -98,27 +120,24 @@ func GetDataAirports() []DataByAirport {
 
 	var dataAirports []DataByAirport
 	for _, id := range idAirports {
-		dA := GetDataAirport(id)
+		dA := GetDataAirport(id, Parameters{})
 		dataAirports = append(dataAirports, dA)
 	}
 
 	return dataAirports
 }
 
-func GetDataAirport(idAirport string) DataByAirport {
-	conn := redisConnection.Get()
-	defer conn.Close()
-
+func GetDataAirport(idAirport string, params Parameters) DataByAirport {
 	var dAirport DataByAirport
 	var dTypes []DataByType
 
-	a := GetDataByType(conn, idAirport, "Wind speed")
+	a := GetDataByType(idAirport, "Wind speed", params)
 	dTypes = append(dTypes, a)
 
-	a = GetDataByType(conn, idAirport, "Temperature")
+	a = GetDataByType(idAirport, "Temperature", params)
 	dTypes = append(dTypes, a)
 
-	a = GetDataByType(conn, idAirport, "Atmospheric pressure")
+	a = GetDataByType(idAirport, "Atmospheric pressure", params)
 	dTypes = append(dTypes, a)
 
 	dAirport.IdAirport = idAirport
@@ -127,32 +146,59 @@ func GetDataAirport(idAirport string) DataByAirport {
 	return dAirport
 }
 
-func GetDataByType(conn redis.Conn, idAirport string, dataType string) DataByType {
-	var d DataByType
+func GetDataByType(idAirport string, dataType string, params Parameters) DataByType {
 	key := idAirport + ":" + dataType
-	r, _ := redis.Strings(conn.Do("ZRANGE", key, 0, -1, "WITHSCORES"))
-	dataList := GetSensorListFromData(idAirport, dataType, r)
+	r := getDataStrings(key, params)
+	dataList := GetSensorListFromData(idAirport, dataType, Parameters{}, r)
+
+	var d DataByType
 	d.Data = dataList
 	d.Type = dataType
 
 	return d
 }
 
-func GetSensorListFromData(idAirport string, dataType string, data []string) []sensors.Sensor {
+func getDataStrings(key string, params Parameters) []string {
+	conn := redisConnection.Get()
+	defer conn.Close()
+
+	var r []string
+	if params.DateStart != "" {
+		layout := "2006-01-02-15-04-05"
+		startTime, _ := time.Parse(layout, params.DateStart)
+		start := startTime.Unix()
+		var end string
+		end = "+inf"
+		if params.DateEnd != "" {
+			endTime, _ := time.Parse(layout, params.DateEnd)
+			end = strconv.FormatInt(endTime.Unix(), 10)
+		}
+		r, _ = redis.Strings(conn.Do("ZRANGEBYSCORE", key, start, end, "WITHSCORES"))
+	} else {
+		r, _ = redis.Strings(conn.Do("ZRANGE", key, 0, -1, "WITHSCORES"))
+	}
+
+	return r
+}
+
+func GetSensorListFromData(idAirport string, dataType string, params Parameters, data []string) []sensors.Sensor {
 	var sList []sensors.Sensor
 	var s sensors.Sensor
 	for i := 0; i < len(data); i += 2 {
 		idSensor, val := ExtractData(data[i])
-		timestamp, _ := strconv.ParseInt(data[i+1], 10, 64)
+		idSensorParam, _ := strconv.Atoi(params.IdSensor)
+		if params.IdSensor == "" || idSensorParam == idSensor {
+			timestamp, _ := strconv.ParseInt(data[i+1], 10, 64)
 
-		s = sensors.Sensor{
-			IdSensor:    idSensor,
-			IdAirport:   idAirport,
-			TypeMeasure: dataType,
-			Value:       val,
-			DateMeasure: timestamp,
+			s = sensors.Sensor{
+				IdSensor:    idSensor,
+				IdAirport:   idAirport,
+				TypeMeasure: dataType,
+				Value:       val,
+				DateMeasure: timestamp,
+			}
+			sList = append(sList, s)
 		}
-		sList = append(sList, s)
 	}
 
 	return sList
@@ -165,11 +211,41 @@ func ExtractData(redisData string) (int, float64) {
 	return idSensor, val
 }
 
-func IsIn(slice []string, val string) bool {
-	for _, item := range slice {
-		if item == val {
-			return true
+func GetSensorData(params Parameters) []sensors.Sensor {
+	conn := redisConnection.Get()
+	idAirports, _ := redis.Strings(conn.Do("SMEMBERS", "idAirports"))
+	conn.Close()
+
+	var res []sensors.Sensor
+	var found bool
+	for _, id := range idAirports {
+		res, found = GetSensorDataByType(id, "Atmospheric pressure", params)
+		if found {
+			break
+		}
+		res, found = GetSensorDataByType(id, "Wind speed", params)
+		if found {
+			break
+		}
+		res, found = GetSensorDataByType(id, "Temperature", params)
+		if found {
+			break
 		}
 	}
-	return false
+
+	return res
+}
+
+func GetSensorDataByType(idAirport string, dataType string, params Parameters) ([]sensors.Sensor, bool) {
+	conn := redisConnection.Get()
+	defer conn.Close()
+
+	key := idAirport + ":" + dataType
+	r := getDataStrings(key, params)
+	var res []sensors.Sensor
+	var found bool
+	res = GetSensorListFromData(idAirport, dataType, params, r)
+	found = len(res) > 0
+
+	return res, found
 }
