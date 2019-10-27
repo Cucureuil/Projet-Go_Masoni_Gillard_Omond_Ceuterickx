@@ -21,5 +21,6 @@ func GetAirportBClient() mqtt.Client {
 func Receive(c mqtt.Client, m mqtt.Message) {
 	var data sensors.Sensor
 	json.Unmarshal(m.Payload(), &data)
-	redis.InsertNewEntry(data)
+	redis.InsertNewEntryRedis(data)
+	redis.InsertNewEntryCSV(data)
 }

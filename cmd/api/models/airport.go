@@ -249,3 +249,12 @@ func GetSensorDataByType(idAirport string, dataType string, params Parameters) (
 
 	return res, found
 }
+
+func AverageFromSensorData(data []sensors.Sensor) float64 {
+	var av float64
+	av = 0
+	for _, s := range data {
+		av += s.Value
+	}
+	return av / float64(len(data))
+}

@@ -33,10 +33,11 @@ func InitializeRouter() *mux.Router {
 	router.Methods("GET").Path("/average/airport/{id}/{sensorType}/{startDate}/{endDate}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensorAndAirportAndTypeBetweenTwoDates)
 
 	// // R4: average for sensor
-	// router.Methods("GET").Path("/average/sensor/{id}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensor)
+	router.Methods("GET").Path("/average/sensor/{id}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensor)
 	// // R4: average for sensor between two dates
-	// router.Methods("GET").Path("/average/sensor/{id}/{startDate}/{endDate}").Name("average").HandlerFunc(controller.GetSensorsAverageBetweenTwoDates)
+	router.Methods("GET").Path("/average/sensor/{id}/{startDate}/{endDate}").Name("average").HandlerFunc(controller.GetSensorsAverageBetweenTwoDates)
 
+	// ON NE FAIT PAS
 	// // R4: averages for each types of sensor by Sensor Type
 	// router.Methods("GET").Path("/average/type/{sensorType}").Name("average").HandlerFunc(controller.GetSensorsAverageBySensorType)
 	// // R4: averages for each types of sensor between two dates
