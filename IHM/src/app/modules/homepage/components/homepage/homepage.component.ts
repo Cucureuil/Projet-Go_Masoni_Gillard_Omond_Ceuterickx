@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from '../../../commun/services/api.service';
 
 @Component({
   selector: 'app-homepage',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
+  airportsList = [];
 
-  constructor() { }
+  constructor(private apiServ: ApiService) { }
 
   ngOnInit() {
+    this.apiServ.doGetRequest(ApiService.API_GET_ALL_AIRPORTS).subscribe( data => {
+    });
   }
-
 }

@@ -1,5 +1,9 @@
 <app-header></app-header>
 
-<p>
-  homepage works!
-</p>
+<div>
+  <h2>Liste des aéroports</h2>
+  <div>
+    <div *ngFor="let airport of airportsList">{{airport.id}}</div>
+
+  </div>
+</div>

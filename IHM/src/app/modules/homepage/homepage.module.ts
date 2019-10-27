@@ -9,7 +9,7 @@ import {HomepageRouter} from './homepage-routing.module';
   imports: [
     CommonModule,
     CommunModule,
-    HomepageRouter
+    HomepageRouter,
   ],
 })
 export class HomepageModule { }
