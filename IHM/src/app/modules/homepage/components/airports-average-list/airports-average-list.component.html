@@ -1,14 +1,14 @@
 <h2 class="ml-5 mt-5">Moyennes par aéroports</h2>
 <div>
-  <div *ngFor="let idAiport of airportsList.keys()" class="row col-6 border border-secondary justify-content-around p-3 m-5">
+  <div *ngFor="let idAiport of airportsList.keys()" class="row col-6 border rounded border-secondary justify-content-around p-3 m-5">
     <span class="col-2">{{idAiport}}</span>
-    <div class="col-3 border border-secondary text-center p-1 wind-box-bg-color">
+    <div class="col-3 border rounded border-secondary text-center p-1 wind-box-bg-color">
       {{airportsList.get(idAiport)[0].Average}} km/h
     </div>
-    <div class="col-3 border border-secondary text-center p-1 temp-box-bg-color">
+    <div class="col-3 border rounded border-secondary text-center p-1 temp-box-bg-color">
       {{airportsList.get(idAiport)[1].Average}} °C
     </div>
-    <div class="col-3 border border-secondary text-center p-1 press-box-bg-color">
+    <div class="col-3 border rounded border-secondary text-center p-1 press-box-bg-color">
       {{airportsList.get(idAiport)[2].Average}} kPa
     </div>
   </div>
