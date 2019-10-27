@@ -3,7 +3,7 @@ package config
 
 func GetTemp() *ConfigConnection {
 	return &ConfigConnection{
-		BrokerPort:    "1883",
+		BrokerPort:    "8080",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
 		ClientID:      "ST01",
@@ -12,7 +12,7 @@ func GetTemp() *ConfigConnection {
 
 func GetWind() *ConfigConnection {
 	return &ConfigConnection{
-		BrokerPort:    "1883",
+		BrokerPort:    "8080",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
 		ClientID:      "SW01",
@@ -21,7 +21,7 @@ func GetWind() *ConfigConnection {
 
 func GetPress() *ConfigConnection {
 	return &ConfigConnection{
-		BrokerPort:    "1883",
+		BrokerPort:    "8080",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
 		ClientID:      "SP01",
@@ -30,7 +30,7 @@ func GetPress() *ConfigConnection {
 
 func GetAirportA() *ConfigConnection {
 	return &ConfigConnection{
-		BrokerPort:    "1883",
+		BrokerPort:    "8080",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
 		ClientID:      "AAA1",
@@ -39,7 +39,7 @@ func GetAirportA() *ConfigConnection {
 
 func GetAirportB() *ConfigConnection {
 	return &ConfigConnection{
-		BrokerPort:    "1883",
+		BrokerPort:    "8080",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
 		ClientID:      "BBB1",

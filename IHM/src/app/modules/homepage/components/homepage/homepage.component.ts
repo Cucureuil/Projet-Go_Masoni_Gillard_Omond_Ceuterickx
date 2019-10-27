@@ -13,6 +13,7 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit() {
     this.apiServ.doGetRequest(ApiService.API_GET_ALL_AIRPORTS).subscribe( data => {
+        console.log(data);
     });
   }
 }

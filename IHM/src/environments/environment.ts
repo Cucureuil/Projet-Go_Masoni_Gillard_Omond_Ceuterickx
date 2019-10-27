@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   HTTP_OPTIONS: true,
   HTTP_OPTIONS_CORS: false,
-  API_ENDPOINT: 'http://localhost:80/',
+  API_ENDPOINT: 'http://localhost:8081/',
   SEPARATOR: '?',
   DIRECTORY_SEPARATOR: '/',
   LOGO_EXTENSION_NAME: '_dev',

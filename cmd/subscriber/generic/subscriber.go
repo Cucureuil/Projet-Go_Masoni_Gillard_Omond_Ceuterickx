@@ -6,7 +6,6 @@ import (
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/config"
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/sensors"
 	"encoding/json"
-	"fmt"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )

@@ -37,7 +37,6 @@ export class ApiService {
      */
 
     private apiUrl = environment.API_ENDPOINT;
-    private readonly httpOptionsPost: HttpHeaders = new HttpHeaders();
     private readonly httpOptionsGet: HttpHeaders = new HttpHeaders();
     private token = '';
 
@@ -46,17 +45,11 @@ export class ApiService {
             if (environment.HTTP_OPTIONS_CORS) {
                 this.httpOptionsGet = new HttpHeaders({
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Access-Control-Allow-Headers': 'Content-Type',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-                    'Access-Control-Allow-Credentials': 'true',
                 });
             } else {
                 this.httpOptionsGet = new HttpHeaders({
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
+
                 });
             }
         }
