@@ -44,14 +44,6 @@ export class ApiService {
     constructor(private http: HttpClient) {
         if (environment.HTTP_OPTIONS) {
             if (environment.HTTP_OPTIONS_CORS) {
-                this.httpOptionsPost = new HttpHeaders({
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Access-Control-Allow-Headers': 'Content-Type',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-                    'Access-Control-Allow-Credentials': 'true',
-                });
                 this.httpOptionsGet = new HttpHeaders({
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
@@ -61,12 +53,10 @@ export class ApiService {
                     'Access-Control-Allow-Credentials': 'true',
                 });
             } else {
-                this.httpOptionsPost = new HttpHeaders({
-                    'Content-Type': 'application/json',
-                });
                 this.httpOptionsGet = new HttpHeaders({
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
                 });
             }
         }
