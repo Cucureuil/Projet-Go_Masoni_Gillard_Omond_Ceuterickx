@@ -1,0 +1,32 @@
+<div class="row justify-content-around">
+  <div class="col-3 border border-secondary text-center">
+    <div>
+      <img src="assets/wind.png" height="30" width="30" class="mr-3">
+      <span class="border-bottom border-secondary">Vitesse du vent</span>
+    </div>
+    <div class="row">
+      <div class="col">Min : {{minMaxList[0][0]}}</div>
+      <div class="col">Max : {{minMaxList[0][1]}}</div>
+    </div>
+  </div>
+  <div class="col-3 border border-secondary text-center">
+    <div>
+      <img src="assets/temp.png" height="30" class="mr-3">
+      <span class="border-bottom border-secondary">Température</span>
+    </div>
+    <div class="row">
+      <div class="col">Min : {{minMaxList[1][0]}}</div>
+      <div class="col">Max : {{minMaxList[1][1]}}</div>
+    </div>
+  </div>
+  <div class="col-3 border border-secondary text-center">
+    <div>
+      <img src="assets/press.png" width="30" class="mr-3">
+      <span class="border-bottom border-secondary">Pression atmosphérique</span>
+    </div>
+    <div class="row">
+      <div class="col">Min : {{minMaxList[2][0]}}</div>
+      <div class="col">Max : {{minMaxList[2][1]}}</div>
+    </div>
+  </div>
+</div>
