@@ -49,8 +49,8 @@ mosquitto -v <br/>
 /average/airport/{id}/{sensorType}/{startDate}/{endDate} -- averages by sensor type and airport and between two dates<br/>
 /average/sensor/{id} -- average of a sensor<br/>
 /average/sensor/{id}/{startDate}/{endDate} -- average of a sensor between two dates<br/>
-/average/type/{sensorType} -- average by sensor type<br/>
-/average/type/{sensorType}/{startDate}/{endDate} -- average by sensor type between two dates<br/>  
+/average/type/{sensorType} -- average by sensor type -- <b>On ne fait pas</b> <br/> 
+/average/type/{sensorType}/{startDate}/{endDate} -- average by sensor type between two dates -- <b>On ne fait pas</b> <br/>  
 </p>
 
 <h1>REDIS</h1>
