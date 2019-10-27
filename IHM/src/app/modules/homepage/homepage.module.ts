@@ -4,9 +4,10 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import {CommunModule} from '../commun/commun.module';
 import {HomepageRouter} from './homepage-routing.module';
 import { MinMaxMesuresComponent } from './components/min-max-mesures/min-max-mesures.component';
+import { AirportsAverageListComponent } from './components/airports-average-list/airports-average-list.component';
 
 @NgModule({
-  declarations: [HomepageComponent, MinMaxMesuresComponent],
+  declarations: [HomepageComponent, MinMaxMesuresComponent, AirportsAverageListComponent],
   imports: [
     CommonModule,
     CommunModule,

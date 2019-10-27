@@ -1,32 +1,33 @@
+<h2 class="ml-5 mt-3 mb-3">Moyennes globales</h2>
 <div class="row justify-content-around">
-  <div class="col-3 border border-secondary text-center">
+  <div class="col-3 border border-secondary text-center p-1 wind-box-bg-color">
     <div>
       <img src="assets/wind.png" height="30" width="30" class="mr-3">
       <span class="border-bottom border-secondary">Vitesse du vent</span>
     </div>
     <div class="row">
-      <div class="col">Min : {{minMaxList[0][0]}}</div>
-      <div class="col">Max : {{minMaxList[0][1]}}</div>
+      <div class="col">Min : {{minMaxList[0][0]}} km/h</div>
+      <div class="col">Max : {{minMaxList[0][1]}} Km/h</div>
     </div>
   </div>
-  <div class="col-3 border border-secondary text-center">
+  <div class="col-3 border border-secondary text-center p-1 temp-box-bg-color">
     <div>
       <img src="assets/temp.png" height="30" class="mr-3">
       <span class="border-bottom border-secondary">Température</span>
     </div>
     <div class="row">
-      <div class="col">Min : {{minMaxList[1][0]}}</div>
-      <div class="col">Max : {{minMaxList[1][1]}}</div>
+      <div class="col">Min : {{minMaxList[1][0]}} °C</div>
+      <div class="col">Max : {{minMaxList[1][1]}} °C</div>
     </div>
   </div>
-  <div class="col-3 border border-secondary text-center">
+  <div class="col-3 border border-secondary text-center p-1 press-box-bg-color">
     <div>
       <img src="assets/press.png" width="30" class="mr-3">
       <span class="border-bottom border-secondary">Pression atmosphérique</span>
     </div>
     <div class="row">
-      <div class="col">Min : {{minMaxList[2][0]}}</div>
-      <div class="col">Max : {{minMaxList[2][1]}}</div>
+      <div class="col">Min : {{minMaxList[2][0]}} kPa</div>
+      <div class="col">Max : {{minMaxList[2][1]}} kPa</div>
     </div>
   </div>
 </div>
