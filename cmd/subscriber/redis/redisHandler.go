@@ -2,6 +2,7 @@
 package redis
 
 import (
+	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/redisConnection"
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/sensors"
 	"encoding/csv"
 	"fmt"
@@ -13,12 +14,9 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
+// Insert the informations of a sensor into redis database
 func InsertNewEntryRedis(data sensors.Sensor) {
-	conn, err := redis.Dial("tcp", "localhost:6379")
-	if err != nil {
-		fmt.Println("error")
-		log.Fatal(err)
-	}
+	conn := redisConnection.Get()
 	defer conn.Close()
 
 	conn.Do("SADD", "idAirports", data.IdAirport)
@@ -37,6 +35,8 @@ func InsertNewEntryRedis(data sensors.Sensor) {
 	}
 }
 
+// Insert a new line in a CSV file
+// The CSV file is opened or create in the same folder as the application
 func InsertNewEntryCSV(data sensors.Sensor) {
 	dataString, nameFile := prepareSensorDataForCSV(data)
 	f, errOpen := os.OpenFile(nameFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
@@ -57,6 +57,8 @@ func InsertNewEntryCSV(data sensors.Sensor) {
 
 }
 
+// Return a tuple with the informations from a sensor as a list of string and
+// the title of the file to put the informations in
 func prepareSensorDataForCSV(data sensors.Sensor) ([]string, string) {
 	dateMesure := time.Unix(data.DateMeasure, 0)
 	dateString := dateMesure.Format("01-02-2006")

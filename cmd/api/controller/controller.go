@@ -213,48 +213,6 @@ func GetSensorsAverageBetweenTwoDates(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-* Call in router:/average/type/{sensorType}
-* Get  averages for each types of sensor by Sensor Type
- */
-// func GetSensorsAverageBySensorType(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
-// 	w.WriteHeader(http.StatusOK)
-
-// 	// get params like : www.../airport/id
-// 	vars := mux.Vars(r)
-
-// 	sensorType := vars["sensorType"]
-
-// 	// fakes data
-// 	airports := models.ListAllAirport()
-// 	fmt.Println("AVERAGE TO SENSOR TYPE")
-// 	fmt.Println(sensorType)
-// 	json.NewEncoder(w).Encode(airports)
-// }
-
-/*
-* Call in router:/average/type/{sensorType}/{startDate}/{endDate}
-* Get averages for each types of sensor between two dates
- */
-// func GetSensorsAverageBySensorTypeBetweenTwoDates(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-type", "application/json;charset=UTF-8")
-// 	w.WriteHeader(http.StatusOK)
-
-// 	// get params like : www.../airport/id
-// 	vars := mux.Vars(r)
-
-// 	sensorType := vars["sensorType"]
-// 	startDate := vars["startDate"]
-// 	endDate := vars["endDate"]
-
-// 	// fakes data
-// 	airports := models.Get
-// 	fmt.Println("AVERAGE TO SENSOR TYPE && TWO DATES")
-// 	fmt.Println(sensorType, startDate, endDate)
-// 	json.NewEncoder(w).Encode(airports)
-// }
-
-/*
 * Call in router:/average/airport/{id}/{sensorType}/{startDate}/{endDate}
 * Get averages for each types of sensor by Sensor Type, airport Id and between two dates
  */

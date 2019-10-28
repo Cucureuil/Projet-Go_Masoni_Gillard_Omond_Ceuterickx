@@ -37,6 +37,8 @@ type Parameters struct {
 	DateEnd   string
 }
 
+// Return the average of mesures from each type of sensors
+// for all the airports registered in database
 func GetAverageAirports() []AverageByAirport {
 	conn := redisConnection.Get()
 	idAirports, _ := redis.Strings(conn.Do("SMEMBERS", "idAirports"))
@@ -51,6 +53,8 @@ func GetAverageAirports() []AverageByAirport {
 	return averagesAirports
 }
 
+// Return the average of measures from each type of sensors
+// for one specific airport
 func GetAverageAirport(idAirport string, params Parameters) AverageByAirport {
 	var avAirport AverageByAirport
 	var avTypes []AverageByType
@@ -70,6 +74,8 @@ func GetAverageAirport(idAirport string, params Parameters) AverageByAirport {
 	return avAirport
 }
 
+// Return the average of measures from one specific type of sensor
+// and one specific airport
 func GetAverageByType(idAirport string, dataType string, params Parameters) AverageByType {
 	conn := redisConnection.Get()
 	defer conn.Close()
@@ -77,20 +83,7 @@ func GetAverageByType(idAirport string, dataType string, params Parameters) Aver
 	var a AverageByType
 	key := idAirport + ":" + dataType
 	var r []string
-	if params.DateStart != "" {
-		layout := "2006-01-02-15-04-05"
-		startTime, _ := time.Parse(layout, params.DateStart)
-		start := startTime.Unix()
-		var end string
-		end = "+inf"
-		if params.DateEnd != "" {
-			endTime, _ := time.Parse(layout, params.DateEnd)
-			end = strconv.FormatInt(endTime.Unix(), 10)
-		}
-		r, _ = redis.Strings(conn.Do("ZRANGEBYSCORE", key, start, end))
-	} else {
-		r, _ = redis.Strings(conn.Do("ZRANGE", key, 0, -1))
-	}
+	r = getDataStrings(key, params)
 	av := Average(r)
 	a.Average = av
 	a.Type = dataType
@@ -98,6 +91,9 @@ func GetAverageByType(idAirport string, dataType string, params Parameters) Aver
 	return a
 }
 
+// Return the average of measures given in parameters
+// The parameter is a list of string from which contain
+// each measure
 func Average(data []string) float64 {
 	var av float64
 	av = 0
@@ -113,6 +109,8 @@ func Average(data []string) float64 {
 	}
 }
 
+// Return the mesures from each type of sensors
+// for all the airports registered in database
 func GetDataAirports() []DataByAirport {
 	conn := redisConnection.Get()
 	idAirports, _ := redis.Strings(conn.Do("SMEMBERS", "idAirports"))
@@ -127,6 +125,8 @@ func GetDataAirports() []DataByAirport {
 	return dataAirports
 }
 
+// Return the measures from each type of sensors
+// for one specific airport
 func GetDataAirport(idAirport string, params Parameters) DataByAirport {
 	var dAirport DataByAirport
 	var dTypes []DataByType
@@ -146,6 +146,8 @@ func GetDataAirport(idAirport string, params Parameters) DataByAirport {
 	return dAirport
 }
 
+// Return the measures from one specific type of sensor
+// and one specific airport
 func GetDataByType(idAirport string, dataType string, params Parameters) DataByType {
 	key := idAirport + ":" + dataType
 	r := getDataStrings(key, params)
@@ -158,6 +160,8 @@ func GetDataByType(idAirport string, dataType string, params Parameters) DataByT
 	return d
 }
 
+// Get the list of data associated with the key passed in parameter
+// The params parameter allows to filter these data by date or idSensor
 func getDataStrings(key string, params Parameters) []string {
 	conn := redisConnection.Get()
 	defer conn.Close()
@@ -181,6 +185,7 @@ func getDataStrings(key string, params Parameters) []string {
 	return r
 }
 
+// Parse a list of data from Redis as a sensor type
 func GetSensorListFromData(idAirport string, dataType string, params Parameters, data []string) []sensors.Sensor {
 	var sList []sensors.Sensor
 	var s sensors.Sensor
@@ -204,6 +209,8 @@ func GetSensorListFromData(idAirport string, dataType string, params Parameters,
 	return sList
 }
 
+// Extract the useful informations from a Redis data which
+// are the id of the sensor and its associated value
 func ExtractData(redisData string) (int, float64) {
 	r := strings.Split(redisData, ":")
 	idSensor, _ := strconv.Atoi(r[1])
@@ -211,6 +218,7 @@ func ExtractData(redisData string) (int, float64) {
 	return idSensor, val
 }
 
+// Return the measures of a specific sensor
 func GetSensorData(params Parameters) []sensors.Sensor {
 	conn := redisConnection.Get()
 	idAirports, _ := redis.Strings(conn.Do("SMEMBERS", "idAirports"))
@@ -236,6 +244,9 @@ func GetSensorData(params Parameters) []sensors.Sensor {
 	return res
 }
 
+// Return the measures of a specific sensor type and a specific airport
+// If it didn't find anything, it return false, else true
+// params allows to filter these data by date or idSensor
 func GetSensorDataByType(idAirport string, dataType string, params Parameters) ([]sensors.Sensor, bool) {
 	conn := redisConnection.Get()
 	defer conn.Close()
@@ -250,6 +261,7 @@ func GetSensorDataByType(idAirport string, dataType string, params Parameters) (
 	return res, found
 }
 
+// Return the average from the measures of a list of sensors
 func AverageFromSensorData(data []sensors.Sensor) float64 {
 	var av float64
 	av = 0
