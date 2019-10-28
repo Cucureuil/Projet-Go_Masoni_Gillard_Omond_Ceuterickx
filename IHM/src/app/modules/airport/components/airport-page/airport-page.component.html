@@ -1,3 +1,16 @@
-<p>
-  airport-page works!
-</p>
+<app-header [title]="'Aéroport - ' + airportId"></app-header>
+
+<div id="accordion">
+  <div class="ml-5 mt-5 col-8 wind-box-bg-color p-3">
+    <h2 data-toggle="collapse" data-target="#windDataList" aria-expanded="false" aria-controls="collapseWind">Pression atmosphérique</h2>
+    <div id="windDataList" class="collapse" data-parent="#accordion">
+      <div *ngFor="let pressData of pressDataList" class="row global_backgroud col-6 border rounded border-secondary justify-content-around p-3 m-5">
+        <span class="col-3">Id: {{pressData.idSensor}}</span>
+        <span class="col">{{pressData.value}}</span>
+        <div>
+          <span>le {{dateToString(pressData.dateMeasure)}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
