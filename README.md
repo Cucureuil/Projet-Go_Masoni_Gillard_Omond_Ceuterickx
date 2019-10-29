@@ -81,3 +81,20 @@ mosquitto -v <br/>
   zadd "BBB1:Atmospheric pressure" 1571855663 7:4:985.30<br/>
   zadd "BBB1:Temperature" 1571855673 8:5:74.9<br/>
 </p>
+
+<h1>IHM</h1>
+
+<p>
+  Installation : angular
+  Lancer le serveur :
+  <ul>
+    <li>
+      Ouvrir terminal à la racine du dossier d'IHM
+    </li>
+    <li>
+      Taper "ng serve --o"
+    </li>
+  </ul>
+  
+  Une fois le serveur lancé, le navigateur va s'ouvrir sur la page de tableau de bord
+</p>
