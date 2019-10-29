@@ -12,7 +12,7 @@ go get "github.com/eclipse/paho.mqtt.golang"<br/>
 <h3>1 - RUN MOSQUITTO SERVER</h3>
 <p>
   OPEN CMD :<br/>
-mosquitto -v <br/>
+mosquitto -v -p 8080<br/>
 </p>
 
 <h3>2 - API</h3> 
