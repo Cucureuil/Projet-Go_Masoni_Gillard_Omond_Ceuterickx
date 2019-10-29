@@ -3,7 +3,7 @@ package models
 import (
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/redisConnection"
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/sensors"
-
+	"fmt"
 	"strconv"
 	"strings"
 	"time"
@@ -83,7 +83,20 @@ func GetAverageByType(idAirport string, dataType string, params Parameters) Aver
 	var a AverageByType
 	key := idAirport + ":" + dataType
 	var r []string
-	r = getDataStrings(key, params)
+	if params.DateStart != "" {
+		layout := "2006-01-02-15-04-05"
+		startTime, _ := time.Parse(layout, params.DateStart)
+		start := startTime.Unix()
+		var end string
+		end = "+inf"
+		if params.DateEnd != "" {
+			endTime, _ := time.Parse(layout, params.DateEnd)
+			end = strconv.FormatInt(endTime.Unix(), 10)
+		}
+		r, _ = redis.Strings(conn.Do("ZRANGEBYSCORE", key, start, end))
+	} else {
+		r, _ = redis.Strings(conn.Do("ZRANGE", key, 0, -1))
+	}
 	av := Average(r)
 	a.Average = av
 	a.Type = dataType

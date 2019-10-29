@@ -10,8 +10,6 @@ import (
 	"os"
 	"strconv"
 	"time"
-
-	"github.com/gomodule/redigo/redis"
 )
 
 // Insert the informations of a sensor into redis database
@@ -29,7 +27,7 @@ func InsertNewEntryRedis(data sensors.Sensor) {
 	valueString := strconv.FormatFloat(data.Value, 'f', 2, 64)
 	value := idDonneeString + ":" + idSensorString + ":" + valueString
 
-	_, err = conn.Do("ZADD", key, timestamp, value)
+	_, err := conn.Do("ZADD", key, timestamp, value)
 	if err != nil {
 		log.Fatal(err)
 	}
