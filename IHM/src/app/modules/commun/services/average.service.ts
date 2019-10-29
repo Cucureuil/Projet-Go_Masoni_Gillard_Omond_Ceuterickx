@@ -24,11 +24,11 @@ export class AverageService {
           const value = airportData.Averages[i].Average;
 
           if (value < this.minMaxList[i][0]) {
-            this.minMaxList[i][0] = value;
+            this.minMaxList[i][0] = Math.round(value * 100) / 100;
           }
 
           if (value > this.minMaxList[i][1]) {
-            this.minMaxList[i][1] = value;
+            this.minMaxList[i][1] = Math.round(value * 100) / 100;
           }
         }
       }

@@ -23,7 +23,7 @@ export class SensorModel {
     }
 
     get value(): number {
-        return this._value;
+        return Math.round(this._value * 100) / 100;
     }
 
     set value(value: number) {

@@ -17,4 +17,8 @@ export class AirportsAverageListComponent implements OnInit {
       this.airportsList = data;
     });
   }
+
+    round(nb: number) {
+        return Math.round(nb * 100) / 100;
+    }
 }
