@@ -9,11 +9,11 @@
 </form>
 <div id="accordion">
   <div class="ml-5 mt-5 col-4 wind-box-bg-color pointer p-3">
-    <div class="row">
+    <div class="row" data-toggle="collapse" data-target="#windDataList" aria-expanded="false" aria-controls="collapseWind">
       <div class="col-2">
         <img src="assets/wind.png" height="40" width="40" class="mr-3">
       </div>
-      <h2 class="col" data-toggle="collapse" data-target="#windDataList" aria-expanded="false" aria-controls="collapseWind">Force du vent</h2>
+      <h2 class="col pointer">Force du vent</h2>
     </div>
     <div id="windDataList" class="collapse" data-parent="#accordion">
       <div *ngFor="let windData of windDataList" class="row global_backgroud col-8 border rounded border-secondary justify-content-around p-3 ml-5 mr-5 mt-3">
@@ -29,11 +29,11 @@
     </div>
   </div>
   <div class="ml-5 mt-5 col-4 press-box-bg-color pointer p-3">
-    <div class="row">
+    <div class="row" data-toggle="collapse" data-target="#pressDataList" aria-expanded="false" aria-controls="collapseWind">
       <div class="col-2">
         <img src="assets/press.png" width="40" height="25" class="mr-3">
       </div>
-      <h2 class="col" data-toggle="collapse" data-target="#pressDataList" aria-expanded="false" aria-controls="collapseWind">Pression atmosphérique</h2>
+      <h2 class="col pointer">Pression atmosphérique</h2>
     </div>
     <div id="pressDataList" class="collapse" data-parent="#accordion">
       <div *ngFor="let pressData of pressDataList" class="row global_backgroud col-8 border rounded border-secondary justify-content-around p-3 ml-5 mr-5 mt-3">
@@ -49,11 +49,11 @@
     </div>
   </div>
   <div class="ml-5 mt-5 col-4 temp-box-bg-color pointer p-3">
-    <div class="row">
+    <div class="row" data-toggle="collapse" data-target="#tempDataList" aria-expanded="false" aria-controls="collapseWind">
       <div class="col-2">
         <img src="assets/temp.png" height="30" class="mr-3">
       </div>
-      <h2 class="col" data-toggle="collapse" data-target="#tempDataList" aria-expanded="false" aria-controls="collapseWind">Température</h2>
+      <h2 class="col pointer">Température</h2>
     </div>
     <div id="tempDataList" class="collapse" data-parent="#accordion">
       <div *ngFor="let tempData of tempDataList" class="row global_backgroud col-8 border rounded border-secondary justify-content-around p-3 ml-5 mr-5 mt-3">

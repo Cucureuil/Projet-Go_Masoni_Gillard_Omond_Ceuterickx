@@ -20,5 +20,9 @@
 }
 
 .pointer {
-  cursor: pointer;
+  cursor: pointer !important;
+}
+
+h1, h2, span {
+  cursor: default;
 }
