@@ -13,6 +13,8 @@ export class AirportPageComponent implements OnInit {
   windDataList: SensorModel[] = [];
   tempDataList: SensorModel[] = [];
   pressDataList: SensorModel[] = [];
+  startDate: string;
+  endDate: string;
 
   constructor(private apiServ: ApiService, private route: ActivatedRoute) { }
 
@@ -23,8 +25,8 @@ export class AirportPageComponent implements OnInit {
     });
   }
 
-  private loadData() {
-    this.apiServ.doGetRequest(ApiService.API_GET_AIRPORT_DATA + this.airportId).subscribe( res => {
+  private loadData(dates: string = '') {
+    this.apiServ.doGetRequest(ApiService.API_GET_AIRPORT_DATA + this.airportId + dates).subscribe( res => {
       const container = JSON.parse(JSON.stringify(res)).Data;
       this.windDataList = [];
       this.tempDataList = [];
@@ -70,5 +72,22 @@ export class AirportPageComponent implements OnInit {
 
   dateToString(date: Date) {
     return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+  }
+
+
+  onFilterByDate() {
+    if ((this.endDate === undefined || this.endDate == null) && (this.startDate === undefined || this.startDate == null)) {
+      this.loadData();
+    } else {
+      let startDate = this.startDate;
+      let endDate = this.endDate;
+      if (startDate === undefined || startDate == null) {
+        startDate = '1950-01-01';
+      }
+      if (endDate === undefined || endDate == null) {
+        endDate = '2500-01-01';
+      }
+      this.loadData('/' + startDate + '-00-00-00' + '/' + endDate + '-00-00-00');
+    }
   }
 }
