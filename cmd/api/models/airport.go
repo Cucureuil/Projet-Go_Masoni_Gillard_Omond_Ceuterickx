@@ -3,7 +3,6 @@ package models
 import (
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/redisConnection"
 	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/intern/entities/sensors"
-	"fmt"
 	"strconv"
 	"strings"
 	"time"
