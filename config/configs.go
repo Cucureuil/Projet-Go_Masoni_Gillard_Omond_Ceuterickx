@@ -33,7 +33,7 @@ func GetAirportA() *ConfigConnection {
 		BrokerPort:    "8080",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
-		ClientID:      "AAA1",
+		ClientID:      "AAA",
 	}
 }
 
@@ -42,6 +42,6 @@ func GetAirportB() *ConfigConnection {
 		BrokerPort:    "8080",
 		BrokerAddress: "tcp://localhost",
 		QoSLevel:      0,
-		ClientID:      "BBB1",
+		ClientID:      "BBB",
 	}
 }
