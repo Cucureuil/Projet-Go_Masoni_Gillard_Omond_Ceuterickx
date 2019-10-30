@@ -1,6 +1,7 @@
 package sensors
 
 import (
+	"Projet-Go_Masoni_Gillard_Omond_Ceuterickx/config"
 	"math"
 	"math/rand"
 	"time"
@@ -52,7 +53,7 @@ func RandSensorTemperature() *Sensor {
 
 func RandSensorPressure() *Sensor {
 	date := getDate()
-	airport := "BBB1"
+	airport := config.GetAirportB().ClientID
 	pres := roundMeasureValue(randPressure())
 	return NewSensorPressure(3, airport, pres, date)
 }
@@ -64,9 +65,9 @@ func RandIdAirport() string {
 	i := rand.Intn(30)
 	switch {
 	case i <= 15:
-		return "AAA1"
+		return config.GetAirportA().ClientID
 	case i <= 30 && i > 15:
-		return "BBB1"
+		return config.GetAirportB().ClientID
 	}
 	return ""
 }
