@@ -70,16 +70,16 @@ mosquitto -v -p 8080<br/>
   Une fois le serveur lancé, ouvrir un deuxième terminal à la racine et taper "redis-cli" pour accéder au terminal de redis.<br/>
   Dans ce terminal, ajouter les données de tests (copy paste la liste suivant dans le terminal) :<br/>
   <br/>
-  sadd idAirports AAA1 BBB1<br/>
+  sadd idAirports AAA BBB<br/>
   <br/>
-  zadd "AAA1:Atmospheric pressure" 1571855613 1:1:25.02<br/>
-  zadd "AAA1:Atmospheric pressure" 1571855623 2:1:521.32<br/>
-  zadd "AAA1:Temperature" 1571855633 3:2:32.52<br/>
-  zadd "AAA1:Temperature" 1571855643 4:2:5.3<br/>
-  zadd "AAA1:Wind speed" 1571855643 5:3:25.3<br/>
-  zadd "BBB1:Atmospheric pressure" 1571855653 6:4:648.5<br/>
-  zadd "BBB1:Atmospheric pressure" 1571855663 7:4:985.30<br/>
-  zadd "BBB1:Temperature" 1571855673 8:5:74.9<br/>
+  zadd "AAA:Atmospheric pressure" 1571855613 1:1:25.02<br/>
+  zadd "AAA:Atmospheric pressure" 1571855623 2:1:521.32<br/>
+  zadd "AAA:Temperature" 1571855633 3:2:32.52<br/>
+  zadd "AAA:Temperature" 1571855643 4:2:5.3<br/>
+  zadd "AAA:Wind speed" 1571855643 5:3:25.3<br/>
+  zadd "BBB:Atmospheric pressure" 1571855653 6:4:648.5<br/>
+  zadd "BBB:Atmospheric pressure" 1571855663 7:4:985.30<br/>
+  zadd "BBB:Temperature" 1571855673 8:5:74.9<br/>
 </p>
 
 <h1>IHM</h1>
